@@ -1,4 +1,4 @@
-import { fetchPosts, createPost, editPost, deletePost, addReaction, addComment } from "../modules/posts";
+import { fetchPosts, createPost, editPost, deletePost, addReaction, addComment } from "./modules/posts";
 
 
 document.addEventListener('DOMContentLoaded', () => {

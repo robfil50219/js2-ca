@@ -1,4 +1,4 @@
-import { register } from "../modules/auth"; 
+import { register } from "./modules/auth"; 
 
 document.getElementById('registerForm').addEventListener('submit', async function(event) {
     event.preventDefault();

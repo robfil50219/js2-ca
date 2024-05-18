@@ -1,4 +1,4 @@
-import { login, createApiKey } from "../modules/auth"; 
+import { login, createApiKey } from "./modules/auth"; 
 
 document.getElementById('loginForm').addEventListener('submit', async function(event) {
     event.preventDefault();
