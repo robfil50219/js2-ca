@@ -20,5 +20,9 @@ async function editPost(postId, title, body, tags, media) {
 }
 
 async function deletePost(postId){
-    
+    const token = localStorage.getItem('token')
+    const apiKey = localStorage.getItem('apiKey');
+    return await apiRequest(`/social/posts/${postId}`, 'DELETE', null, token, apiKey);
 }
+
+
