@@ -25,4 +25,10 @@ async function deletePost(postId){
     return await apiRequest(`/social/posts/${postId}`, 'DELETE', null, token, apiKey);
 }
 
+async function addReaction(postId) {
+    const token = localStorage.getItem('token')
+    const apiKey = localStorage.getItem('apiKey');
+    return await apiRequest(`/social/posts/${postId}/react/${symbol}`, 'PUT', null, token, apiKey);
+}
+
 
