@@ -7,3 +7,8 @@ async function fetchPosts(page = 1, limit = 10, sort = 'created', sortOrder = 'd
     return await apiRequest(endpoint,'GET', null, token, apiKey);
 }
 
+async function createPost(title, body, tags, media) {
+    const token = localStorage.getItem('token');
+    const apiKey = localStorage.getItem('apiKey');
+}
+
