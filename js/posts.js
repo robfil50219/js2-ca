@@ -19,3 +19,6 @@ async function editPost(postId, title, body, tags, media) {
     return await apiRequest(`/social/posts/${postId}`, 'PUT', { title, body, tags, media }, token, apiKey);
 }
 
+async function deletePost(postId){
+    
+}
