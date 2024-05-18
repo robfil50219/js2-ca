@@ -31,4 +31,10 @@ async function addReaction(postId) {
     return await apiRequest(`/social/posts/${postId}/react/${symbol}`, 'PUT', null, token, apiKey);
 }
 
+async function addComment(postId, body) {
+    const token = localStorage.getItem('token');
+    const apiKey = localStorage.getItem('apiKey');
+    return await apiRequest(`/social/posts/${postId}/comment`, 'POST', { body }, token, apiKey);
+}
+
 
