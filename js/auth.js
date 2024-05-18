@@ -12,3 +12,4 @@ async function createApiKey(token) {
     const response = await apiRequest('/social/auth/create-api-key', 'POST', null, token);
 }
 
+export { register, login, createApiKey};
