@@ -26,6 +26,11 @@
         <button id="createPostBtn" class="btn btn-primary">Create Post</button>
         <div>
           <lable for="sort">Sort by</lable>
+          <select id="sort" onchange="applySorting()">
+            <options valu="created">created</options>
+            <options valu="title">title</options>
+            <options valu="body">body</options>
+          </select>
         </div>
       </div>
     </main>
