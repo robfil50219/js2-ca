@@ -1,16 +1,18 @@
-import { apiRequest } from "./api"; 
+// js/modules/posts.js
 
-async function fetchPosts(page = 1, limit = 10, sort = 'created', sortOrder = 'desc' , tag = ''){
+import { apiRequest } from './api.js';
+
+async function fetchPosts(page = 1, limit = 10, sort = 'created', sortOrder = 'desc', tag = '') {
     const token = localStorage.getItem('token');
-    const apiKey= localStorage.getItem(apiKey); 
+    const apiKey = localStorage.getItem('apiKey'); 
     const endpoint = `/social/posts?page=${page}&limit=${limit}&sort=${sort}&sortOrder=${sortOrder}${tag ? `&_tag=${tag}` : ''}&_author=true&_comments=true&_reactions=true`;
-    return await apiRequest(endpoint,'GET', null, token, apiKey);
+    return await apiRequest(endpoint, 'GET', null, token, apiKey);
 }
 
 async function createPost(title, body, tags, media) {
     const token = localStorage.getItem('token');
     const apiKey = localStorage.getItem('apiKey');
-    return await apiRequest ('/social/posts', 'Post',{ title, body, tags, media }, token, apiKey); 
+    return await apiRequest('/social/posts', 'POST', { title, body, tags, media }, token, apiKey); 
 }
 
 async function editPost(postId, title, body, tags, media) {
@@ -19,14 +21,14 @@ async function editPost(postId, title, body, tags, media) {
     return await apiRequest(`/social/posts/${postId}`, 'PUT', { title, body, tags, media }, token, apiKey);
 }
 
-async function deletePost(postId){
-    const token = localStorage.getItem('token')
+async function deletePost(postId) {
+    const token = localStorage.getItem('token');
     const apiKey = localStorage.getItem('apiKey');
     return await apiRequest(`/social/posts/${postId}`, 'DELETE', null, token, apiKey);
 }
 
-async function addReaction(postId) {
-    const token = localStorage.getItem('token')
+async function addReaction(postId, symbol) {
+    const token = localStorage.getItem('token');
     const apiKey = localStorage.getItem('apiKey');
     return await apiRequest(`/social/posts/${postId}/react/${symbol}`, 'PUT', null, token, apiKey);
 }
@@ -38,3 +40,4 @@ async function addComment(postId, body) {
 }
 
 export { fetchPosts, createPost, editPost, deletePost, addReaction, addComment };
+

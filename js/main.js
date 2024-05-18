@@ -1,10 +1,10 @@
-import { fetchPosts, createPost, editPost, deletePost, addReaction, addComment } from "./posts";
+import { fetchPosts, createPost, editPost, deletePost, addReaction, addComment } from "../modules/posts";
 
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchPosts().then(posts => {
         console.log(posts);
-        
+        displayPosts(posts);
     }).catch(error => {
         console.error(error);
     });
@@ -19,8 +19,31 @@ document.getElementById('createPostBtn').addEventListener('click', () => {
 
     createPost(title, body, tags, { url: mediaUrl, alt: mediaAlt }).then(post => {
         console.log('Post created:', post);
-    
+        
+        fetchPosts().then(posts => {
+            displayPosts(posts);
+        }).catch(error => {
+            console.error(error);
+        });
     }).catch(error => {
         console.error(error);
     });
 });
+
+function displayPosts(posts) {
+    const contentDiv = document.getElementById('content');
+    contentDiv.innerHTML = ''; 
+    posts.forEach(post => {
+        const postElement = document.createElement('div');
+        postElement.classList.add('post');
+        postElement.innerHTML = `
+            <h2>${post.title}</h2>
+            <p>${post.body}</p>
+            <p><strong>Tags:</strong> ${post.tags.join(', ')}</p>
+            ${post.media ? `<img src="${post.media.url}" alt="${post.media.alt}">` : ''}
+            <button onclick="editPost(${post.id})">Edit</button>
+            <button onclick="deletePost(${post.id})">Delete</button>
+        `;
+        contentDiv.appendChild(postElement);
+    });
+}

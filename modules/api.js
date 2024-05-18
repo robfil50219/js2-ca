@@ -3,7 +3,7 @@ const baseUrl = 'https://v2.api.noroff.dev';
 async function apiRequest(endpoint, method = 'GET', body = null, token = null, apiKey = null) {
     const headers = {
         'Content-Type': 'application/json'
-    }; 
+    };
 
     if (token) {
         headers['Authorization'] = `Bearer ${token}`;
@@ -28,3 +28,4 @@ async function apiRequest(endpoint, method = 'GET', body = null, token = null, a
 }
 
 export { apiRequest };
+
