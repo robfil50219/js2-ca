@@ -10,5 +10,12 @@ async function fetchPosts(page = 1, limit = 10, sort = 'created', sortOrder = 'd
 async function createPost(title, body, tags, media) {
     const token = localStorage.getItem('token');
     const apiKey = localStorage.getItem('apiKey');
+    return await apiRequest ('/social/posts', 'Post',{ title, body, tags, media }, token, apiKey); 
+}
+
+async function editPost(postId, title, body, tags, media) {
+    const token = localStorage.getItem('token');
+    const apiKey = localStorage.getItem('apiKey');
+    return await apiRequest(`/social/posts/${postId}`, 'PUT', { title, body, tags, media }, token, apiKey);
 }
 
