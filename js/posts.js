@@ -37,4 +37,4 @@ async function addComment(postId, body) {
     return await apiRequest(`/social/posts/${postId}/comment`, 'POST', { body }, token, apiKey);
 }
 
-
+export { fetchPosts, createPost, editPost, deletePost, addReaction, addComment };
