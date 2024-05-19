@@ -1,0 +1,29 @@
+{
+    "name": "unity-grid",
+    "version": "1.0.0",
+    "description": "A front-end client for a social media platform built with JavaScript.",
+    "main": "index.js",
+    "scripts": {
+      "start": "http-server -c-1 -p 8080",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/robfil50219/js2-ca.git"
+    },
+    "keywords": [
+      "social",
+      "media",
+      "platform",
+      "frontend",
+      "javascript"
+    ],
+    "author": "Robert Filep",
+    "license": "MIT",
+    "dependencies": {
+      "http-server": "^0.12.3"
+    },
+    "devDependencies": {
+      "eslint": "^7.32.0"
+    }
+  }
