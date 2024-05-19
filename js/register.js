@@ -15,17 +15,19 @@ document.getElementById('registerForm').addEventListener('submit', async (event)
         name,
         email,
         password,
-        avatar: avatarUrl ? { url: avatarUrl } : undefined,
-        banner: bannerUrl ? { url: bannerUrl } : undefined,
+        ...(avatarUrl && { avatar: { url: avatarUrl } }),
+        ...(bannerUrl && { banner: { url: bannerUrl } }),
     };
 
     try {
         await registerUser(profile);
+        alert('Registration successful!'); // Inform the user about successful registration
     } catch (error) {
         console.error('Registration failed:', error);
         alert('Registration failed: ' + error.message); // Display error message
     }
 });
+
 
 
 

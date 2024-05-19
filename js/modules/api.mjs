@@ -1,23 +1,10 @@
-import { API_BASE_URL } from './constants.mjs';
+import { API_BASE_URL, API_KEY } from './constants.mjs';
 
-/**
- * Make an API request.
- * @param {string} endpoint - The API endpoint.
- * @param {string} method - The HTTP method.
- * @param {Object} [body] - The request body.
- * @param {string} [token] - The JWT token.
- * @returns {Promise<Object>} The response data.
- */
 export async function apiRequest(endpoint, method = 'GET', body = null, token = null) {
-    const apiKey = localStorage.getItem('apiKey');
-
     const headers = {
         'Content-Type': 'application/json',
+        'x-api-key': API_KEY
     };
-
-    if (apiKey) {
-        headers['x-api-key'] = apiKey;
-    }
 
     if (token) {
         headers['Authorization'] = `Bearer ${token}`;
@@ -31,11 +18,15 @@ export async function apiRequest(endpoint, method = 'GET', body = null, token = 
 
     const data = await response.json();
     if (!response.ok) {
-        throw new Error(data.errors.map(error => error.message).join(', '));
+        console.error('API Request failed:', data);
+        throw new Error(data.errors ? data.errors.map(error => error.message).join(', ') : response.statusText);
     }
 
     return data;
 }
+
+
+
 
 
 

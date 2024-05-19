@@ -1,4 +1,5 @@
-import { API_BASE_URL } from './constants.mjs';
+// auth.mjs
+import { API_BASE_URL, API_KEY } from './constants.mjs';
 import { apiRequest } from './api.mjs';
 
 /**
@@ -26,14 +27,14 @@ export async function register(userDetails) {
  * @param {string} token - The JWT token.
  * @returns {Promise<Object>} The API key data.
  */
-async function createApiKey(token) {
+export async function createApiKey(token) {
     const response = await fetch(`${API_BASE_URL}/auth/create-api-key`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ name: 'My API Key name' }), // Optional name
+        body: JSON.stringify({ name: 'My API Key name' }), 
     });
 
     const data = await response.json();
@@ -43,6 +44,10 @@ async function createApiKey(token) {
 
     return data;
 }
+
+
+
+
 
 
 
