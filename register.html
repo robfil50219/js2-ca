@@ -31,7 +31,6 @@
               class="form-control"
               id="name"
               name="name"
-              autocomplete="username"
               pattern="[a-zA-Z0-9_]+"
               required
             />
@@ -43,8 +42,7 @@
               class="form-control"
               id="email"
               name="email"
-              autocomplete="email"
-              pattern="[a-zA-Z0-9._%+-]+@stud\\.noroff\\.no"
+              pattern="[a-zA-Z0-9._%+-]+@(stud\.)?noroff\.no"
               required
             />
           </div>
@@ -55,18 +53,28 @@
               class="form-control"
               id="password"
               name="password"
-              autocomplete="new-password"
+              minlength="8"
               required
             />
           </div>
+          <div class="mb-3">
+            <label for="avatar" class="form-label">Avatar URL</label>
+            <input type="url" class="form-control" id="avatar" name="avatar" />
+          </div>
+          <div class="mb-3">
+            <label for="banner" class="form-label">Banner URL</label>
+            <input type="url" class="form-control" id="banner" name="banner" />
+          </div>
           <button type="submit" class="btn btn-primary">Register</button>
+          <div id="registerErrorContainer" class="hidden">
+            <span id="registerError" class="error-message"></span>
+          </div>
         </form>
       </main>
       <footer class="footer">
         <div class="container py-3">
           <div class="row">
             <div class="col-md-6">
-              <h5>Unity Grid</h5>
               <p>Connect with friends and the world around you.</p>
             </div>
             <div class="col-md-6 text-md-end">

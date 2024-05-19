@@ -1,4 +1,4 @@
-import { apiRequest } from './api.js';
+import { apiRequest } from './api.mjs';
 
 async function fetchProfiles() {
     const token = localStorage.getItem('token');
