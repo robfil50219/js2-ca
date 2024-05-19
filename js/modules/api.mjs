@@ -8,10 +8,10 @@ import { API_BASE_URL, API_KEY } from './constants.mjs';
  * @param {string} [token] - The JWT token.
  * @returns {Promise<Object>} The response data.
  */
-async function apiRequest(endpoint, method = 'GET', body = null, token = null) {
+export async function apiRequest(endpoint, method = 'GET', body = null, token = null) {
     const headers = {
         'Content-Type': 'application/json',
-        'x-api-key': API_KEY
+        'x-api-key': API_KEY,
     };
 
     if (token) {
@@ -21,7 +21,7 @@ async function apiRequest(endpoint, method = 'GET', body = null, token = null) {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method,
         headers,
-        body: body ? JSON.stringify(body) : null
+        body: body ? JSON.stringify(body) : null,
     });
 
     const data = await response.json();
@@ -32,7 +32,7 @@ async function apiRequest(endpoint, method = 'GET', body = null, token = null) {
     return data;
 }
 
-export { apiRequest };
+
 
 
 

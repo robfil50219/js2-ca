@@ -1,8 +1,5 @@
-// js/modules/auth.mjs
-
-import { API_SOCIAL_URL } from './constants.mjs';
-import { save } from './storage.mjs';
-import { getProfile } from './profileRead.mjs';
+import { API_BASE_URL, API_KEY } from './constants.mjs';
+import { apiRequest } from './api.mjs';
 
 /**
  * Register a new user.
@@ -10,44 +7,43 @@ import { getProfile } from './profileRead.mjs';
  * @returns {Promise<Object>} The registered user data.
  */
 export async function register(userDetails) {
-    const response = await apiRequest('/social/auth/register', 'POST', userDetails);
+    const response = await apiRequest('/auth/register', 'POST', userDetails);
     return response;
 }
 
 /**
  * Login a user.
  * @param {Object} profile - The user profile.
- * @param {string} profile.email - The email of the user.
- * @param {string} profile.password - The password of the user.
  * @returns {Promise<void>}
  */
 export async function login(profile) {
-    const loginURL = `${API_SOCIAL_URL}/auth/login`;
+    const action = '/auth/login';
+    const method = 'POST';
+
+    const actionURL = new URL(action, API_BASE_URL);
+    const loginURL = actionURL.href;
     const body = JSON.stringify(profile);
 
+    let response;
     try {
-        const response = await fetch(loginURL, {
-            method: 'POST',
+        response = await fetch(loginURL, {
+            method,
             headers: {
                 'Content-Type': 'application/json',
-                'x-api-key': API_KEY
+                'x-api-key': API_KEY,
             },
             body,
         });
 
         if (!response.ok) {
-            const errorData = await response.json();
+            const data = await response.json();
             const errContainer = document.querySelector('#loginErrorContainer');
             const errMsg = document.querySelector('#loginError');
 
             errContainer.classList.remove('hidden');
             errContainer.classList.add('flex');
-            if (errorData) {
-                errMsg.textContent = errorData.errors[0].message;
-            } else {
-                errMsg.textContent = error.message;
-            }
-            return;
+            errMsg.textContent = data.errors ? data.errors[0].message : response.statusText;
+            throw new Error(data.errors ? data.errors[0].message : response.statusText);
         }
 
         const data = await response.json();
@@ -60,11 +56,17 @@ export async function login(profile) {
 
         save('profile', user);
 
-        window.location.href = '/profile.html';
+        window.location.href = 'profile.html'; // Redirect to profile page after login
     } catch (error) {
+        console.error('Login failed:', error);
         throw new Error(error);
     }
 }
+
+
+
+
+
 
 
 
