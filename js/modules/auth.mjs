@@ -1,5 +1,4 @@
-// auth.mjs
-import { API_BASE_URL, API_KEY } from './constants.mjs';
+import { API_BASE_URL } from './constants.mjs';
 import { apiRequest } from './api.mjs';
 
 /**
@@ -34,7 +33,7 @@ export async function createApiKey(token) {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ name: 'My API Key name' }), 
+        body: JSON.stringify({ name: 'My API Key name' }), // Optional name
     });
 
     const data = await response.json();
@@ -43,6 +42,27 @@ export async function createApiKey(token) {
     }
 
     return data;
+}
+
+/**
+ * Log in a user and create an API key.
+ * @param {string} email - The user's email.
+ * @param {string} password - The user's password.
+ * @returns {Promise<Object>} The logged-in user data.
+ */
+export async function login(email, password) {
+    const response = await apiRequest('/auth/login', 'POST', { email, password });
+    const { accessToken, ...userData } = response.data;
+
+    localStorage.setItem('token', accessToken);
+    localStorage.setItem('user', JSON.stringify(userData));
+
+    const apiKeyResponse = await createApiKey(accessToken);
+    if (apiKeyResponse) {
+        localStorage.setItem('apiKey', apiKeyResponse.data.key);
+    }
+
+    return userData;
 }
 
 

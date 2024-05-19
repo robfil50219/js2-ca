@@ -24,9 +24,14 @@ document.getElementById('registerForm').addEventListener('submit', async (event)
         alert('Registration successful!'); // Inform the user about successful registration
     } catch (error) {
         console.error('Registration failed:', error);
-        alert('Registration failed: ' + error.message); // Display error message
+        const errorContainer = document.getElementById('registerErrorContainer');
+        const errorMessage = document.getElementById('registerError');
+        errorContainer.classList.remove('hidden');
+        errorMessage.textContent = `Registration failed: ${error.message}`;
     }
 });
+
+
 
 
 

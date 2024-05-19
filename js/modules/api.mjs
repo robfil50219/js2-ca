@@ -3,7 +3,7 @@ import { API_BASE_URL, API_KEY } from './constants.mjs';
 export async function apiRequest(endpoint, method = 'GET', body = null, token = null) {
     const headers = {
         'Content-Type': 'application/json',
-        'x-api-key': API_KEY
+        'X-Noroff-API-Key': API_KEY
     };
 
     if (token) {
