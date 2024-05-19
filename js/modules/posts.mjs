@@ -1,4 +1,4 @@
-import { apiRequest } from './api.js';
+import { apiRequest } from './api.mjs';
 
 async function fetchPosts(page = 1, limit = 10, sort = 'created', sortOrder = 'desc', tag = '') {
     const token = localStorage.getItem('token');
@@ -36,6 +36,8 @@ async function addComment(postId, body) {
     const apiKey = localStorage.getItem('apiKey');
     return await apiRequest(`/social/posts/${postId}/comment`, 'POST', { body }, token, apiKey);
 }
+
+
 
 export { fetchPosts, createPost, editPost, deletePost, addReaction, addComment };
 
