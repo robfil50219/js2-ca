@@ -1,15 +1,29 @@
 import { apiRequest } from './api.js';
 
-async function register(email, password) {
-    return await apiRequest('social/auth/register' , 'POST', { email, password }); 
-}
-
 async function login(email, password) {
-    return await apiRequest('/social/auth/login', 'POST',{ email, password}); 
+    const response = await apiRequest('/auth/login', 'POST', { email, password });
+    const { accessToken } = response.data;
+    localStorage.setItem('token', accessToken);
+
+    const apiKeyResponse = await apiRequest('/auth/create-api-key', 'POST', null, accessToken);
+    const { key } = apiKeyResponse.data;
+    localStorage.setItem('apiKey', key);
+
+    return response;
 }
 
-async function createApiKey(token) {
-    const response = await apiRequest('/social/auth/create-api-key', 'POST', null, token);
+async function register(name, email, password) {
+    const response = await apiRequest('/auth/register', 'POST', { name, email, password });
+    const { accessToken } = response.data;
+    localStorage.setItem('token', accessToken);
+
+    const apiKeyResponse = await apiRequest('/auth/create-api-key', 'POST', null, accessToken);
+    const { key } = apiKeyResponse.data;
+    localStorage.setItem('apiKey', key);
+
+    return response;
 }
 
-export { register, login, createApiKey};
+export { login, register };
+
+

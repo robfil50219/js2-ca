@@ -1,18 +1,18 @@
-import { login, createApiKey } from "./modules/auth"; 
+import { login } from './modules/auth.js';
 
-document.getElementById('loginForm').addEventListener('submit', async function(event) {
+document.getElementById('loginForm').addEventListener('submit', async (event) => {
     event.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
     try {
-        const data = await login(email, password);
-        localStorage.setItem('token', data.data.accessToken);
-        localStorage.setItem('apiKey', await createApiKey(data.data.accessToken));
-        localStorage.setItem('user', JSON.stringify(data.data));
-        alert('Login successful!');
-        window.location.href = 'index.html';
+        const response = await login(email, password);
+        console.log('Login successful:', response);
+        console.log('Token:', localStorage.getItem('token'));
+        console.log('API Key:', localStorage.getItem('apiKey'));
+        window.location.href = 'index.html'; // Redirect to home page after login
     } catch (error) {
-        alert('Error: ' + error.message);
+        console.error('Login failed:', error);
     }
 });
+

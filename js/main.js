@@ -1,5 +1,4 @@
-import { fetchPosts, createPost, editPost, deletePost, addReaction, addComment } from "./modules/posts";
-
+import { fetchPosts, createPost, editPost, deletePost, addReaction, addComment } from './modules/posts.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchPosts().then(posts => {
@@ -19,7 +18,6 @@ document.getElementById('createPostBtn').addEventListener('click', () => {
 
     createPost(title, body, tags, { url: mediaUrl, alt: mediaAlt }).then(post => {
         console.log('Post created:', post);
-        
         fetchPosts().then(posts => {
             displayPosts(posts);
         }).catch(error => {
@@ -32,7 +30,7 @@ document.getElementById('createPostBtn').addEventListener('click', () => {
 
 function displayPosts(posts) {
     const contentDiv = document.getElementById('content');
-    contentDiv.innerHTML = ''; 
+    contentDiv.innerHTML = ''; // Clear existing content
     posts.forEach(post => {
         const postElement = document.createElement('div');
         postElement.classList.add('post');
@@ -47,3 +45,4 @@ function displayPosts(posts) {
         contentDiv.appendChild(postElement);
     });
 }
+
