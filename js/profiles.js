@@ -1,6 +1,15 @@
 import { fetchProfiles } from './modules/profiles.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
+    const token = localStorage.getItem('token');
+    const apiKey = localStorage.getItem('apiKey');
+
+    if (!token || !apiKey) {
+        alert('You must be logged in to view profiles.');
+        window.location.href = 'index.html'; // Redirect to login page
+        return;
+    }
+
     try {
         const profiles = await fetchProfiles();
         console.log('Profiles:', profiles);
@@ -21,3 +30,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         alert('Failed to fetch profiles: ' + error.message); // Display error message
     }
 });
+
+
