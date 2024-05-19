@@ -6,6 +6,12 @@ document.getElementById('registerForm').addEventListener('submit', async (event)
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
+    const namePattern = /^[a-zA-Z0-9_]+$/;
+    if (!namePattern.test(name)) {
+        alert('Name can only use a-Z, 0-9, and _');
+        return;
+    }
+
     if (!email.endsWith('@stud.noroff.no')) {
         alert('Only stud.noroff.no emails are allowed to register');
         return;
@@ -16,11 +22,20 @@ document.getElementById('registerForm').addEventListener('submit', async (event)
         console.log('Registration successful:', response);
         console.log('Token:', localStorage.getItem('token'));
         console.log('API Key:', localStorage.getItem('apiKey'));
-        window.location.href = 'index.html'; // Redirect to home page after registration
+        window.location.href = 'index.html'; // Redirect to login page after registration
     } catch (error) {
-        console.error('Registration failed:', error);
+        if (error.message.includes('Profile already exists')) {
+            alert('Profile already exists. Please use a different email address.');
+        } else {
+            console.error('Registration failed:', error);
+            alert('Registration failed: ' + error.message); // Display error message
+        }
     }
 });
+
+
+
+
 
 
 

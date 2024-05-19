@@ -7,10 +7,12 @@ async function apiRequest(endpoint, method = 'GET', body = null, token = null, a
 
     if (token) {
         headers['Authorization'] = `Bearer ${token}`;
+        console.log('Authorization header set:', headers['Authorization']);
     }
 
     if (apiKey) {
         headers['x-api-key'] = apiKey;
+        console.log('API Key header set:', headers['x-api-key']);
     }
 
     const response = await fetch(`${baseUrl}${endpoint}`, {
@@ -21,6 +23,7 @@ async function apiRequest(endpoint, method = 'GET', body = null, token = null, a
 
     const data = await response.json();
     if (!response.ok) {
+        console.error('API Request failed:', data);
         throw new Error(data.errors.map(error => error.message).join(', '));
     }
 
@@ -28,6 +31,10 @@ async function apiRequest(endpoint, method = 'GET', body = null, token = null, a
 }
 
 export { apiRequest };
+
+
+
+
 
 
 

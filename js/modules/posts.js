@@ -3,8 +3,6 @@ import { apiRequest } from './api.js';
 async function fetchPosts(page = 1, limit = 10, sort = 'created', sortOrder = 'desc', tag = '') {
     const token = localStorage.getItem('token');
     const apiKey = localStorage.getItem('apiKey');
-    console.log('Token:', token);
-    console.log('API Key:', apiKey);
     const endpoint = `/social/posts?page=${page}&limit=${limit}&sort=${sort}&sortOrder=${sortOrder}${tag ? `&_tag=${tag}` : ''}&_author=true&_comments=true&_reactions=true`;
     return await apiRequest(endpoint, 'GET', null, token, apiKey);
 }
@@ -40,3 +38,4 @@ async function addComment(postId, body) {
 }
 
 export { fetchPosts, createPost, editPost, deletePost, addReaction, addComment };
+

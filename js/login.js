@@ -10,9 +10,10 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
         console.log('Login successful:', response);
         console.log('Token:', localStorage.getItem('token'));
         console.log('API Key:', localStorage.getItem('apiKey'));
-        window.location.href = 'index.html'; // Redirect to home page after login
+        window.location.href = 'home.html'; // Redirect to home page after login
     } catch (error) {
         console.error('Login failed:', error);
+        alert('Login failed: ' + error.message); // Display error message
     }
 });
 
