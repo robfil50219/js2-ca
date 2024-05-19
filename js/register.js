@@ -24,14 +24,11 @@ document.getElementById('registerForm').addEventListener('submit', async (event)
         console.log('API Key:', localStorage.getItem('apiKey'));
         window.location.href = 'index.html'; // Redirect to login page after registration
     } catch (error) {
-        if (error.message.includes('Profile already exists')) {
-            alert('Profile already exists. Please use a different email address.');
-        } else {
-            console.error('Registration failed:', error);
-            alert('Registration failed: ' + error.message); // Display error message
-        }
+        console.error('Registration failed:', error);
+        alert('Registration failed: ' + error.message); // Display error message
     }
 });
+
 
 
 
